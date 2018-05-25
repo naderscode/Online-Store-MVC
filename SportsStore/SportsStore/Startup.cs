@@ -40,7 +40,7 @@ namespace SportsStore
             app.UseMvc(routes => {
                 routes.MapRoute(
                     name:"default",
-                    template:"{controller=Product}/{action=List}/{id?}"git );
+                    template:"{controller=Product}/{action=List}/{id?}");
 
             });
            
