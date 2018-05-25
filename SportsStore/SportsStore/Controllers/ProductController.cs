@@ -13,5 +13,6 @@ namespace SportsStore.Controllers {
         public ProductController(IProductRepository repo) {
             repository = repo;
         }
+        public ViewResult List() => View(repository.Products);
     }
 }
