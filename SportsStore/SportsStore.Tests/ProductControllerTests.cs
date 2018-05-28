@@ -116,9 +116,9 @@ namespace SportsStore.Tests
 
             // Act
 
-            ProductsListViewModel result =
+            ProductListViewModel result =
 
-                controller.List(2).ViewData.Model as ProductsListViewModel;
+                controller.List(2).ViewData.Model as ProductListViewModel;
 
 
 
