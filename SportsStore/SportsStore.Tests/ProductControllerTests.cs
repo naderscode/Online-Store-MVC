@@ -110,20 +110,21 @@ namespace SportsStore.Tests
 
             ProductController controller =
 
-                new ProductController(mock.Object) { PageSize = 3 };
+                new ProductController(mock.Object)
+                    controller.PageSize = 3;
 
 
 
             // Act
 
-            ProductListViewModel result =
+            ProductsListViewModel result =
 
-                controller.List(2).ViewData.Model as ProductListViewModel;
+                controller.List(2).ViewData.Model as ProductsListViewModel;
 
 
 
             // Assert
-
+            Product[] prodArray = result.Products.ToArray();
             PagingInfo pageInfo = result.PagingInfo;
 
             Assert.Equal(2, pageInfo.CurrentPage);
