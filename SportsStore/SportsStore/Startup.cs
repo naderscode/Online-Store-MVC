@@ -12,11 +12,11 @@ using Microsoft.EntityFrameworkCore;
 
 namespace SportsStore
 {
+
     public class Startup
     {
-        // This method gets called by the runtime. Use this method to add services to the container.
-        // For more information on how to configure your application, visit https://go.microsoft.com/fwlink/?LinkID=398940
-        public Startup(IConfiguration configuration)=>
+
+        public Startup(IConfiguration configuration) =>
             Configuration = configuration;
 
         public IConfiguration Configuration { get; }
@@ -28,45 +28,41 @@ namespace SportsStore
                     Configuration["Data:SportStoreProducts:ConnectionString"]));
             services.AddTransient<IProductRepository, EFProductRepository>();
             services.AddMvc();
+            services.AddMemoryCache();
+            services.AddSession();
         }
 
-        // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IHostingEnvironment env)
         {
-            
-            app.UseDeveloperExceptionPage(); //disable on deployment
+            app.UseDeveloperExceptionPage();
             app.UseStatusCodePages();
             app.UseStaticFiles();
+            app.UseSession();
             app.UseMvc(routes => {
+                routes.MapRoute(
+                    name: null,
+                    template: "{category}/Page{productPage:int}",
+                    defaults: new { controller = "Product", action = "List" }
+                );
 
                 routes.MapRoute(
-                   name: "null",
-                   template: "{category}/Page{productPage:int}",
-                   defaults: new { controller = "Product", action = "List" }
-                   );
+                    name: null,
+                    template: "Page{productPage:int}",
+                    defaults: new { controller = "Product", action = "List", productPage = 1 }
+                );
 
                 routes.MapRoute(
-                   name: "null",
-                   template: "{Page{productPage:int}",
-                   defaults: new { controller = "Product", action = "List", productPage=1}
-                   );
+                    name: null,
+                    template: "{category}",
+                    defaults: new { controller = "Product", action = "List", productPage = 1 }
+                );
 
                 routes.MapRoute(
-                   name: "null",
-                   template: "{category}",
-                   defaults: new { Controller = "Product", action = "List", productPage=1 }
-                   );
+                    name: null,
+                    template: "",
+                    defaults: new { controller = "Product", action = "List", productPage = 1 });
 
-                routes.MapRoute(
-                   name: "null",
-                   template: "",
-                   defaults: new { controller = "Product", action = "List", productPage=1 }
-                   );
-
-                routes.MapRoute(
-                    name: "null",
-                    template: "{controller}/{action}/{id?}");
-
+                routes.MapRoute(name: null, template: "{controller}/{action}/{id?}");
             });
             SeedData.EnsurePopulated(app);
         }
