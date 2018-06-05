@@ -18,7 +18,7 @@ namespace SportsStore.Controllers
             repository = repo;
         }
 
-        public ViewResultIndex(string returnUrl) {
+        public ViewResult Index(string returnUrl) {
             return View(new CartIndexViewModel {
                 Cart=GetCart(),
                 ReturnUrl=returnUrl
