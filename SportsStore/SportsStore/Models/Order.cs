@@ -23,7 +23,7 @@ namespace SportsStore.Models
         public string Line3 { get; set; }
 
         [Required(ErrorMessage = "Please enter a city name")]
-        public string city { get; set; }
+        public string City { get; set; }
 
         [Required(ErrorMessage = "Please enter a state name")]
         public string State { get; set; }
@@ -31,7 +31,7 @@ namespace SportsStore.Models
         public string Zip { get; set; }
 
         [Required(ErrorMessage = "Please enter a country name")]
-        public string country { get; set; }
+        public string Country { get; set; }
         public bool GiftWrap { get; set; }
 
     }
